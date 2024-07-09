@@ -1,2 +1,71 @@
+#question 1
 def number_to_words(n):
-  ones
+    ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    teens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", 
+             "seventeen", "eighteen", "nineteen"]
+    tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
+    
+    if 1 <= n < 10:
+        return ones[n]
+    elif 10 <= n < 20:
+        return teens[n - 10]
+    elif 20 <= n < 100:
+        return tens[n // 10] + (ones[n % 10] if (n % 10 != 0) else "")
+    elif 100 <= n < 1000:
+        return ones[n // 100] + "hundred" + (("and" + number_to_words(n % 100)) if (n % 100 != 0) else "")
+    elif n == 1000:
+        return "onethousand"
+
+def count_letters_in_numbers_up_to(n):
+    total_letters = 0
+    for i in range(1, n + 1):
+        number_in_words = number_to_words(i)
+        # Remove spaces and hyphens to get the actual letters count
+        number_in_words_clean = number_in_words.replace(" ", "").replace("-", "")
+        total_letters += len(number_in_words_clean)
+    return total_letters
+
+total_letters_used = count_letters_in_numbers_up_to(1000)
+print("Total number of letters used from 1 to 1000 inclusive:", total_letters_used)
+
+
+
+
+
+
+
+#Question 2
+def maxScore(cardPoints, k):
+    n = len(cardPoints)
+
+    total_sum = s
+    if k == n:
+        return total_sum
+ 
+    window_size = n - k
+
+    current_sum = sum(cardPoints[:window_size])
+    min_sum = current_sum
+    
+    for i in range(window_size, n):
+        current_sum += cardPoints[i] - cardPoints[i - window_size]
+        min_sum = min(min_sum, current_sum)
+    
+    max_score = total_sum - min_sum
+    
+    return max_score
+
+# Example usage:
+cardPoints1 = [1, 2, 3, 4, 5, 6, 1]
+k1 = 3
+print(maxScore(cardPoints1, k1))  # Output: 12
+
+cardPoints2 = [2, 2, 2]
+k2 = 2
+print(maxScore(cardPoints2, k2))  # Output: 4
+
+cardPoints3 = [9, 7, 7, 9, 7, 7, 9]
+k3 = 7
+print(maxScore(cardPoints3, k3))  # Output: 55
+
+
